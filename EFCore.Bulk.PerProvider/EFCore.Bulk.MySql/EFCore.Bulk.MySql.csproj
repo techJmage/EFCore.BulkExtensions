@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <Title>EFCore.Bulk.MySQL</Title>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <Version>1.0.0</Version>
@@ -30,11 +30,9 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Azure.Identity" Version="1.17.1" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite" Version="8.0.2" />
-        <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite" Version="10.0.0" />
         <PackageReference Include="MedallionTopologicalSort" Version="1.0.0" />
         <PackageReference Include="StrongNamer" Version="0.2.5" />
-        <PackageReference Include="System.Formats.Asn1" Version="6.0.1" />
     </ItemGroup>
     <ItemGroup>
         <None Include="EFCoreBulk.png">

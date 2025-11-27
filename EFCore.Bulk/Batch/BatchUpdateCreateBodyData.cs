@@ -50,7 +50,7 @@ public class BatchUpdateCreateBodyData
         var tableInfo = TableInfo.CreateInstance(dbContext, rootType, Array.Empty<object>(), OperationType.Read, _tableInfoBulkConfig);
         _tableInfoLookup.Add(rootType, tableInfo);
 
-        SqlParameters = new List<object>(innerParameters);
+        SqlParameters = [.. innerParameters];
 
         foreach (Match match in BatchUtil.TableAliasPattern.Matches(baseSql))
         {

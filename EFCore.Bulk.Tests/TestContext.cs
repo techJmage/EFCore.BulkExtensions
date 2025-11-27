@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Configuration;
+using MySql.EntityFrameworkCore.Extensions;
 using NetTopologySuite.Geometries;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ using System.Text.Json;
 
 namespace EFCore.Bulk.Tests;
 
-public class TestContext : DbContext
+public class TestContext(DbContextOptions options) : DbContext(options)
 {
 
     public DbSet<Item> Items { get; set; } = null!;
@@ -89,18 +90,6 @@ public class TestContext : DbContext
     public DbSet<GraphQLModel> GraphQLModels { get; set; } = null!;
 
     public static bool UseTopologyPostgres { get; set; } = false; // needed for object Address with Geo. props
-
-    public TestContext(DbContextOptions options) : base(options)
-    {
-        //Database.EnsureCreated();
-        // if for Postgres on test run get Npgsql Ex:[could not open .../postgis.control] then either install the plugin it or set UseTopologyPostgres to False;
-
-        /*if (Database.IsSqlServer())
-        {
-            Database.ExecuteSqlRaw(@"if exists(select 1 from systypes where name='UdttIntInt') drop type UdttIntInt");
-            Database.ExecuteSqlRaw(@"create type UdttIntInt AS TABLE(C1 int not null, C2 int not null)");
-        }*/
-    }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -295,7 +284,7 @@ public static class ContextUtil
         }
     }
 
-    public static DbContextOptions GetOptions(IInterceptor dbInterceptor) => GetOptions(new[] { dbInterceptor });
+    public static DbContextOptions GetOptions(IInterceptor dbInterceptor) => GetOptions([dbInterceptor]);
     public static DbContextOptions GetOptions(IEnumerable<IInterceptor>? dbInterceptors = null) => GetOptions<TestContext>(dbInterceptors);
 
     public static DbContextOptions GetOptions<TDbContext>(IEnumerable<IInterceptor>? dbInterceptors = null, string databaseName = nameof(EFCoreBulkTest))
@@ -347,27 +336,20 @@ public static class ContextUtil
         else if (DatabaseType == SqlType.MySql)
         {
             string connectionString = GetMySqlConnectionString(databaseName);
-            optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+            optionsBuilder.UseMySQL(connectionString);
         }
         else
-        {
             throw new NotSupportedException($"Database {dbServerType} is not supported. Only SQL Server and SQLite are Currently supported.");
-        }
 
         if (dbInterceptors?.Any() == true)
-        {
             optionsBuilder.AddInterceptors(dbInterceptors);
-        }
-
         return optionsBuilder.Options;
-    }
-
+    }    
     private static IConfiguration GetConfiguration()
     {
         var configBuilder = new ConfigurationBuilder()
             .AddJsonFile("testsettings.json", optional: false)
             .AddJsonFile("testsettings.local.json", optional: true);
-
         return configBuilder.Build();
     }
 
@@ -642,15 +624,11 @@ public class Document
 }
 
 // For testing parameterless constructor
-public class Letter
+public class Letter(string note)
 {
-    public Letter(string note)
-    {
-        Note = note;
-    }
     public int LetterId { get; set; }
 
-    public string Note { get; set; }
+    public string Note { get; set; } = note;
 }
 
 // For testing Temporal tables (configured via FluentAPI )
@@ -998,20 +976,12 @@ public class ContactDetails
 }
 
 [Owned]
-public class AddressCD
+public class AddressCD(string street, string city, string postcode, string country)
 {
-    public AddressCD(string street, string city, string postcode, string country)
-    {
-        Street = street;
-        City = city;
-        Postcode = postcode;
-        Country = country;
-    }
-
-    public string Street { get; set; }
-    public string City { get; set; }
-    public string Postcode { get; set; }
-    public string Country { get; set; }
+    public string Street { get; set; } = street;
+    public string City { get; set; } = city;
+    public string Postcode { get; set; } = postcode;
+    public string Country { get; set; } = country;
 }
 
 public class Partner

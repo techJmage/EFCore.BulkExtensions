@@ -11,7 +11,7 @@ namespace EFCore.Bulk.SqlAdapters.MySql;
 /// <inheritdoc/>
 public class MySqlAdapter : ISqlOperationsAdapter
 {
-    private MySqlQueryBuilder ProviderSqlQueryBuilder => new MySqlQueryBuilder();
+    private MySqlQueryBuilder ProviderSqlQueryBuilder => new();
 
     /// <inheritdoc/>
     #region Methods

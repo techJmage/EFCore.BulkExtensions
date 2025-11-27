@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using MySql.EntityFrameworkCore.Metadata;
 using System.Data.Common;
 
 namespace EFCore.Bulk.SqlAdapters.MySql;
@@ -15,11 +16,10 @@ public class MySqlDbServer : IDbServer
     MySqlDialect _dialect = new();
     IQueryBuilderSpecialization IDbServer.Dialect => _dialect;
 
-    SqlAdapters.SqlQueryBuilder _queryBuilder = new MySqlQueryBuilder();
     /// <inheritdoc/>
-    public SqlQueryBuilder QueryBuilder => _queryBuilder;
+    public SqlQueryBuilder QueryBuilder { get; } = new MySqlQueryBuilder();
 
-    string IDbServer.ValueGenerationStrategy => nameof(MySqlValueGenerationStrategy);
+    string IDbServer.ValueGenerationStrategy => nameof(MySQLValueGenerationStrategy);
 
     /// <inheritdoc/>
     public DbConnection? DbConnection { get; set; }
@@ -27,5 +27,5 @@ public class MySqlDbServer : IDbServer
     /// <inheritdoc/>
     public DbTransaction? DbTransaction { get; set; }
 
-    bool IDbServer.PropertyHasIdentity(IAnnotation annotation) => (MySqlValueGenerationStrategy?)annotation.Value == MySqlValueGenerationStrategy.IdentityColumn;
+    bool IDbServer.PropertyHasIdentity(IAnnotation annotation) => (MySQLValueGenerationStrategy?)annotation.Value == MySQLValueGenerationStrategy.IdentityColumn;
 }

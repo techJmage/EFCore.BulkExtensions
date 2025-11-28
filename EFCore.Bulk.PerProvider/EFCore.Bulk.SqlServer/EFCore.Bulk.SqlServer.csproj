@@ -3,7 +3,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <Title>EFCore.Bulk.SqlServer</Title>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Nullable>enable</Nullable>
     <Authors>borisdj, palash</Authors>
     <Description>EntityFramework .Net EFCore EF Core Bulk Batch Extensions for Insert Update Delete Read (CRUD) operations on SQL Server</Description>

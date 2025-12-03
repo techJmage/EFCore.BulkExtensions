@@ -3,23 +3,23 @@
         <TargetFramework>net10.0</TargetFramework>
         <Title>EFCore.Bulk.PostgreSql</Title>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <Version>1.0.0</Version>
+        <Version>1.0.3</Version>
         <Nullable>enable</Nullable>
         <Authors>borisdj, palash</Authors>
         <Description>EntityFramework .Net EFCore EF Core Bulk Batch Extensions for Insert Update Delete Read (CRUD) operations on PostgreSQL</Description>
-        <PackageProjectUrl>https://github.com/PalashKarmaker/EFCore.Bulk</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/techJmage/EFCore.BulkExtensions</PackageProjectUrl>
         <Company>CODIS LLC</Company>
         <PackageIcon>EFCoreBulk.png</PackageIcon>
         <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
         <PackageReleaseNotes>Minor fixes</PackageReleaseNotes>
         <PackageTags>EntityFrameworkCore Entity Framework Core .Net EFCore EF Core PostgreSQL Bulk Batch Copy SqlBulkCopy Extensions Insert Update Delete Read Truncate SaveChanges</PackageTags>
         <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-        <RepositoryUrl>https://github.com/PalashKarmaker/EFCore.Bulk</RepositoryUrl>
+        <RepositoryUrl>https://github.com/techJmage/EFCore.BulkExtensions</RepositoryUrl>
         <RepositoryType>Git</RepositoryType>
         <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-        <AssemblyVersion>1.0.0.0</AssemblyVersion>
-        <FileVersion>1.0.0.0</FileVersion>
-        <Version>1.0.0.0-pre</Version>
+        <AssemblyVersion>1.0.3.0</AssemblyVersion>
+        <FileVersion>1.0.3.0</FileVersion>
+        <Version>1.0.0.3</Version>
         <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>..\..\Keys\EFCore.Bulk.snk</AssemblyOriginatorKeyFile>
         <DelaySign>false</DelaySign>

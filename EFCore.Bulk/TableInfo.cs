@@ -1140,7 +1140,7 @@ public class TableInfo
     }
 
     // Compiled queries created manually to avoid EF Memory leak bug when using EF with dynamic SQL:
-    // https://github.com/PalashKarmaker/EFCore.Bulk/issues/73
+    // https://github.com/techJmage/EFCore.BulkExtensions/issues/73
     // Once the following Issue gets fixed(expected in EF 3.0) this can be replaced with code segment: DirectQuery
     // https://github.com/aspnet/EntityFrameworkCore/issues/12905
     #region CompiledQuery

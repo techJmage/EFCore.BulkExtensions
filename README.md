@@ -11,15 +11,15 @@ Check out [Testimonials](https://docs.google.com/spreadsheets/d/e/2PACX-1vShdv2s
 Also you can look into others authored packages:
 | №  | .Net library             | Description                                              |
 | -  | ------------------------ | -------------------------------------------------------- |
-| 1  | [EFCore.Bulk](https://github.com/PalashKarmaker/EFCore.Bulk) | EF Core Bulk CRUD Ops (Flagship Lib)|
-| 2  | [EFCore.UtilExtensions](https://github.com/PalashKarmaker/EFCore.Bulk) | EF Core Custom Annotations and AuditInfo |
+| 1  | [EFCore.Bulk](https://github.com/techJmage/EFCore.BulkExtensions) | EF Core Bulk CRUD Ops (Flagship Lib)|
+| 2  | [EFCore.UtilExtensions](https://github.com/techJmage/EFCore.BulkExtensions) | EF Core Custom Annotations and AuditInfo |
 | 3  | [EFCore.FluentApiToAnnotation](https://github.com/borisdj, palash/EFCore.FluentApiToAnnotation) | Converting FluentApi configuration to Annotations |
 | 4  | [FixedWidthParserWriter](https://github.com/borisdj, palash/FixedWidthParserWriter) | Reading & Writing fixed-width/flat data files |
 | 5  | [CsCodeGenerator](https://github.com/borisdj, palash/CsCodeGenerator) | C# code generation based on Classes and elements |
 | 6  | [CsCodeExample](https://github.com/borisdj, palash/CsCodeExample) | Examples of c# code in form of a simple tutorial |
 
 ## License
-*BulkExtensions [licensed](https://github.com/PalashKarmaker/EFCore.Bulk/blob/master/LICENSE.txt) under [**Dual License v1.0**](https://www.codis.tech/efcorebulk/) (solution to OpenSource funding, cFOSS: conditionallyFree OSS).  
+*BulkExtensions [licensed](https://github.com/techJmage/EFCore.BulkExtensions/blob/master/LICENSE.txt) under [**Dual License v1.0**](https://www.codis.tech/efcorebulk/) (solution to OpenSource funding, cFOSS: conditionallyFree OSS).  
 If you do not meet criteria for free usage with community license then you have to buy commercial one.  
 If eligible for free usage but still want to help development and have active support, consider purchasing Starter Lic.  
 
@@ -49,14 +49,14 @@ That is main nuget for all Databases, there are also specific ones with single p
 Only single specific can be installed in a project, if need more then use main one with all providers.  
 Package manager console command for installation: *Install-Package EFCore.Bulk*  
 Specific ones have adapter sufix: MainNuget + *.SqlServer/PostgreSql/MySql/Sqlite*  
-Its assembly is [Strong-Named](https://docs.microsoft.com/en-us/dotnet/standard/library-guidance/strong-naming) and [Signed](https://github.com/PalashKarmaker/EFCore.Bulk/issues/161) with a key.
+Its assembly is [Strong-Named](https://docs.microsoft.com/en-us/dotnet/standard/library-guidance/strong-naming) and [Signed](https://github.com/techJmage/EFCore.BulkExtensions/issues/161) with a key.
 | Nuget | Target          | Used EF v.  | For projects targeting          |
 | ----- | --------------- | ----------- | ------------------------------- |
 | 8.rc  | Net 8.0/7.0/6.0 | EF Core 6-8 | Net 8, 7, 6 - multitarget       |
 | 7.x   | Net 6.0         | EF Core 7.0 | Net 7.0+ or 6.0+                |
 | 6.x   | Net 6.0         | EF Core 6.0 | Net 6.0+                        |
 | 5.x   | NetStandard 2.1 | EF Core 5.0 | Net 5.0+                        |
-| 3.x   | NetStandard 2.0 | EF Core 3.n | NetCore(3.0+) or NetFrm(4.6.1+) [MoreInfo](https://github.com/PalashKarmaker/EFCore.Bulk/issues/271#issuecomment-567117488)|
+| 3.x   | NetStandard 2.0 | EF Core 3.n | NetCore(3.0+) or NetFrm(4.6.1+) [MoreInfo](https://github.com/techJmage/EFCore.BulkExtensions/issues/271#issuecomment-567117488)|
 | 2.x   | NetStandard 2.0 | EF Core 2.n | NetCore(2.0+) or NetFrm(4.6.1+) |
 | 1.x   | NetStandard 1.4 | EF Core 1.0 | NetCore(1.0+)                   |
 
@@ -162,7 +162,7 @@ var bulkConfig = new BulkConfig { UpdateByProperties = new List<string> { nameof
 context.BulkRead(items, bulkConfig); // Items list will be loaded from Db with data(other properties)
 ```
 Useful config **ReplaceReadEntities** that works as *Contains/IN* and returns all which match the criteria (not unique).  
-[Example](https://github.com/PalashKarmaker/EFCore.Bulk/issues/733) of special use case when need to BulkRead child entities after BulkReading parent list. 
+[Example](https://github.com/techJmage/EFCore.BulkExtensions/issues/733) of special use case when need to BulkRead child entities after BulkReading parent list. 
 
 **SaveChanges** uses Change Tracker to find all modified(CUD) entities and call proper BulkOperations for each table.  
 Because it needs tracking it is slower then pure BulkOps but still much faster then regular SaveChanges.  
@@ -218,7 +218,7 @@ If we want Insert only new and skip existing ones in Db (Insert_if_not_Exist) th
 
 Additionally there is **UpdateByProperties** for specifying custom properties, by which we want update to be done.  
 When setting multiple props in UpdateByProps then match done by columns combined, like unique constrain based on those cols.  
-Using UpdateByProperties while also having Identity column requires that Id property be [Excluded](https://github.com/PalashKarmaker/EFCore.Bulk/issues/131).  
+Using UpdateByProperties while also having Identity column requires that Id property be [Excluded](https://github.com/techJmage/EFCore.BulkExtensions/issues/131).  
 Also with PostgreSQL when matching is done it requires UniqueIndex so for custom UpdateByProperties that do not have Un.Ind., it is temporarily created in which case method can not be in transaction (throws: *current transaction is aborted; CREATE INDEX CONCURRENTLY cannot run inside a transaction block*).  
 Similar is done with MySQL by temporarily adding UNIQUE CONSTRAINT.  
 
@@ -237,10 +237,10 @@ When table has Identity column (int autoincrement) with 0 values in list they wi
 Or it can be manually set with proper values for order (Negative values used to skip conflict with existing ones in Db).  
 Here single Id value itself doesn't matter, db will change it to next in sequence, what matters is their mutual relationship for sorting.  
 Insertion order is implemented with [TOP](https://docs.microsoft.com/en-us/sql/t-sql/queries/top-transact-sql) in conjunction with ORDER BY. [stackoverflow:merge-into-insertion-order](https://stackoverflow.com/questions/884187/merge-into-insertion-order).  
-This config should remain true when *SetOutputIdentity* is set to true on Entity containing NotMapped Property. [issues/76](https://github.com/PalashKarmaker/EFCore.Bulk/issues/76)  
+This config should remain true when *SetOutputIdentity* is set to true on Entity containing NotMapped Property. [issues/76](https://github.com/techJmage/EFCore.BulkExtensions/issues/76)  
 When using **SetOutputIdentity** Id values will be updated to new ones from database.  
-With BulkInsertOrUpdate on SQLServer for those that will be updated it has to match with Id column, or other unique column(s) if using UpdateByProperties in which case  [orderBy is done with those props](https://github.com/PalashKarmaker/EFCore.Bulk/issues/806) instead of ID, due to how Sql MERGE works. To preserve insert order by Id in this case alternative would be first to use BulkRead and find which records already exist, then split the list into 2 lists entitiesForUpdate and entitiesForInsert without configuring UpdateByProps).  
-Also for SQLite combination of BulkInsertOrUpdate and IdentityId automatic set will not work properly since it does [not have full MERGE](https://github.com/PalashKarmaker/EFCore.Bulk/issues/556) capabilities like SqlServer. Instead list can be split into 2 lists, and call separately BulkInsert and BulkUpdate.  
+With BulkInsertOrUpdate on SQLServer for those that will be updated it has to match with Id column, or other unique column(s) if using UpdateByProperties in which case  [orderBy is done with those props](https://github.com/techJmage/EFCore.BulkExtensions/issues/806) instead of ID, due to how Sql MERGE works. To preserve insert order by Id in this case alternative would be first to use BulkRead and find which records already exist, then split the list into 2 lists entitiesForUpdate and entitiesForInsert without configuring UpdateByProps).  
+Also for SQLite combination of BulkInsertOrUpdate and IdentityId automatic set will not work properly since it does [not have full MERGE](https://github.com/techJmage/EFCore.BulkExtensions/issues/556) capabilities like SqlServer. Instead list can be split into 2 lists, and call separately BulkInsert and BulkUpdate.  
   
 **SetOutputIdentity** is useful when BulkInsert is done to multiple related tables, that have Identity column.  
 After Insert is done to first table, we need Id-s (if using Option 1) that were generated in Db because they are FK(ForeignKey) in second table.  
@@ -290,9 +290,9 @@ context.BulkSaveChanges();
 When **CalculateStats** set to True the result returned in `BulkConfig.StatsInfo` (*StatsNumber-Inserted/Updated/Deleted*).  
 If used for pure Insert (with Batching) then SetOutputIdentity should also be configured because Merge is required.  
 **TrackingEntities** can be set to True if we want to have tracking of entities from BulkRead or if SetOutputIdentity is set.  
-**WithHoldlock** means [Serializable isolation](https://github.com/PalashKarmaker/EFCore.Bulk/issues/41) level that locks the table (can have negative effect on concurrency).  
+**WithHoldlock** means [Serializable isolation](https://github.com/techJmage/EFCore.BulkExtensions/issues/41) level that locks the table (can have negative effect on concurrency).  
 _ Setting it False can optionally be used to solve deadlock issue Insert.  
-**UseTempDB** when set then BulkOperation has to be [inside Transaction](https://github.com/PalashKarmaker/EFCore.Bulk/issues/49).  
+**UseTempDB** when set then BulkOperation has to be [inside Transaction](https://github.com/techJmage/EFCore.BulkExtensions/issues/49).  
 **UniqueTableNameTempDb** when changed to false temp table name will be only 'Temp' without random numbers.  
 **CustomDestinationTableName** can be set with 'TableName' only or with 'Schema.TableName'.  
 **CustomSourceTableName** when set enables source data from specified table already in Db, so input list not used and can be empty.  
@@ -300,8 +300,8 @@ _ Setting it False can optionally be used to solve deadlock issue Insert.
 **EnableShadowProperties** to add (normal) Shadow Property and persist value. Disables automatic discriminator, use manual method.  
 **IncludeGraph** when set all entities that have relations with main ones from the list are also merged into theirs tables.  
 **OmitClauseExistsExcept** removes the clause from Merge statement, required when having noncomparable types like XML, and useful when need to activate triggers even for same data.  
-_ Also in some [sql collation](https://github.com/PalashKarmaker/EFCore.Bulk/issues/641), small and capital letters are considered  same (case-insensitive) so for BulkUpdate set it false.  
-**DoNotUpdateIfTimeStampChanged** if set checks TimeStamp for Concurrency, ones with conflict will [not be updated](https://github.com/PalashKarmaker/EFCore.Bulk/issues/469#issuecomment-803662721).  
+_ Also in some [sql collation](https://github.com/techJmage/EFCore.BulkExtensions/issues/641), small and capital letters are considered  same (case-insensitive) so for BulkUpdate set it false.  
+**DoNotUpdateIfTimeStampChanged** if set checks TimeStamp for Concurrency, ones with conflict will [not be updated](https://github.com/techJmage/EFCore.BulkExtensions/issues/469#issuecomment-803662721).  
 Return info will be in *BulkConfig.**TimeStampInfo*** object within field `NumberOfSkippedForUpdate` and list `EntitiesOutput`.  
 **SRID** Spatial Reference Identifier - for SQL Server with NetTopologySuite.  
 **DateTime2PrecisionForceRound** If dbtype datetime2 has precision less then default 7, example 'datetime2(3)' SqlBulkCopy does Floor instead of Round so when this Property is set then Rounding will be done in memory to make sure inserted values are same as with regular SaveChanges.  
@@ -337,18 +337,18 @@ For **parallelism** important notes are:
 -Import data to single unindexed table with [tabel level lock](https://learn.microsoft.com/en-us/previous-versions/sql/sql-server-2005/ms186341(v=sql.90))  
 
 Library supports [Global Query Filters](https://docs.microsoft.com/en-us/ef/core/querying/filters) and [Value Conversions](https://docs.microsoft.com/en-us/ef/core/modeling/value-conversions) as well  
-Additionally BatchUpdate and named Property works with [EnumToString Conversion](https://github.com/PalashKarmaker/EFCore.Bulk/issues/397)  
+Additionally BatchUpdate and named Property works with [EnumToString Conversion](https://github.com/techJmage/EFCore.BulkExtensions/issues/397)  
 It can map [OwnedTypes](https://docs.microsoft.com/en-us/ef/core/modeling/owned-entities), also next are links with info how to achieve 
-[NestedOwnedTypes](https://github.com/PalashKarmaker/EFCore.Bulk/issues/167#issuecomment-476737959) and 
-[OwnedInSeparateTable](https://github.com/PalashKarmaker/EFCore.Bulk/issues/114#issuecomment-803462928)  
-On PG when Enum is in OwnedType it needs to have [Converter explicitly](https://github.com/PalashKarmaker/EFCore.Bulk/issues/1108) configured in *OnModelCreating*  
+[NestedOwnedTypes](https://github.com/techJmage/EFCore.BulkExtensions/issues/167#issuecomment-476737959) and 
+[OwnedInSeparateTable](https://github.com/techJmage/EFCore.BulkExtensions/issues/114#issuecomment-803462928)  
+On PG when Enum is in OwnedType it needs to have [Converter explicitly](https://github.com/techJmage/EFCore.BulkExtensions/issues/1108) configured in *OnModelCreating*  
 
-Table splitting are somewhat specific but could be configured in way [Set TableSplit](https://github.com/PalashKarmaker/EFCore.Bulk/issues/352#issuecomment-803674404)  
+Table splitting are somewhat specific but could be configured in way [Set TableSplit](https://github.com/techJmage/EFCore.BulkExtensions/issues/352#issuecomment-803674404)  
 With [Computed](https://docs.microsoft.com/en-us/ef/core/modeling/relational/computed-columns) and [Timestamp](https://docs.microsoft.com/en-us/ef/core/modeling/concurrency) Columns it will work in a way that they are automatically excluded from Insert. And when combined with *SetOutputIdentity* they will be Selected.  
 [Spatial](https://docs.microsoft.com/en-us/sql/relational-databases/spatial/spatial-data-types-overview?view=sql-server-ver15) types, like Geometry, also supported and if  Entity has one, clause *EXIST ... EXCEPT* is skipped because it's not comparable.  
 Performance for bulk ops measured with `ActivitySources` named: '*BulkExecute*' (tags: '*operationType*', '*entitiesCount*')  
-Bulk Extension methods can be [Overridden](https://github.com/PalashKarmaker/EFCore.Bulk/issues/56) if required, for example to set AuditInfo.  
-If having problems with Deadlock there is useful info in [issue/46](https://github.com/PalashKarmaker/EFCore.Bulk/issues/46).
+Bulk Extension methods can be [Overridden](https://github.com/techJmage/EFCore.BulkExtensions/issues/56) if required, for example to set AuditInfo.  
+If having problems with Deadlock there is useful info in [issue/46](https://github.com/techJmage/EFCore.BulkExtensions/issues/46).
 
 **TPH** ([Table-Per-Hierarchy](https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/inheritance)) inheritance model can  can be set in 2 ways.  
 First is automatically by Convention in which case Discriminator column is not directly in Entity but is [Shadow](http://www.learnentityframeworkcore.com/model/shadow-properties) Property.  
@@ -359,4 +359,4 @@ public class Student : Person { ... }
 context.Students.AddRange(entities); // adding to Context so that Shadow property 'Discriminator' gets set
 context.BulkInsert(entities);
 ```
-**TPT** (Table-Per-Type) way it is [supported](https://github.com/PalashKarmaker/EFCore.Bulk/issues/493).
+**TPT** (Table-Per-Type) way it is [supported](https://github.com/techJmage/EFCore.BulkExtensions/issues/493).

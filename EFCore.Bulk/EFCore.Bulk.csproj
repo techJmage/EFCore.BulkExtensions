@@ -16,7 +16,7 @@
 	<PackageReleaseNotes>Minor fixes</PackageReleaseNotes>
     <PackageTags>EntityFrameworkCore Entity Framework Core .Net EFCore EF Core SQL Server PostgreSQL MySQL SQLite Bulk Batch Copy SqlBulkCopy Extensions Insert Update Delete Read Truncate SaveChanges</PackageTags>
 	<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <RepositoryUrl>https://github.com/PalashKarmaker/EFCore.Bulk</RepositoryUrl>
+    <RepositoryUrl>https://github.com/techJmage/EFCore.BulkExtensions</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <SignAssembly>true</SignAssembly>
